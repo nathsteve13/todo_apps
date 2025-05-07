@@ -1,6 +1,6 @@
 [versions]
 agp = "8.5.2"
-kotlin = "1.9.0"
+kotlin = "2.1.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -10,14 +10,23 @@ material = "1.12.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
 navigationFragmentKTX = "2.5.3"
+navigationFragmentKtxVersion = "2.8.9"
 navigationUIKTX = "2.5.3"
+navigationUiKtxVersion = "2.8.9"
+roomKtxVersion = "2.7.1"
 roomRuntime = "2.5.1"
 roomKTX = "2.5.1"
 roomCompiler = "2.5.1"
+roomRuntimeVersion = "2.7.1"
+lifecycleViewmodelAndroid = "2.8.7"
 
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-navigation-fragment-ktx-v289 = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtxVersion" }
+androidx-navigation-ui-ktx-v289 = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationUiKtxVersion" }
+androidx-room-ktx-v271 = { module = "androidx.room:room-ktx", version.ref = "roomKtxVersion" }
+androidx-room-runtime-v271 = { module = "androidx.room:room-runtime", version.ref = "roomRuntimeVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -30,6 +39,7 @@ navigation-ui-ktx = { group ="androidx.navigation", name="navigation-ui-ktx", ve
 room-runtime = { group="androidx.room", name="room-runtime", version.ref="roomRuntime" }
 room-ktx = { group="androidx.room", name="room-ktx", version.ref="roomKTX" }
 room-compiler = { group = "androidx.room", name="room-compiler", version.ref = "roomCompiler" }
+androidx-lifecycle-viewmodel-android = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-android", version.ref = "lifecycleViewmodelAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
