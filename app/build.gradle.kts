@@ -12,6 +12,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
     defaultConfig {
         applicationId = "com.ubaya.todoapp"

@@ -12,9 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.ubaya.todoapp.R
 import com.ubaya.todoapp.databinding.FragmentCreateTodoBinding
+import com.ubaya.todoapp.model.Todo
 import com.ubaya.todoapp.viewmodel.DetailTodoViewModel
 
-class EditTodoFragment : Fragment() {
+class EditTodoFragment : Fragment(), RadioClickListener  {
     private lateinit var binding: FragmentCreateTodoBinding
     private lateinit var viewModel: DetailTodoViewModel
 
@@ -39,6 +40,7 @@ class EditTodoFragment : Fragment() {
             Navigation.findNavController(it).popBackStack()
         }
 
+        binding.listener = this
 
     }
 
@@ -51,18 +53,30 @@ class EditTodoFragment : Fragment() {
 
     fun observeViewModel() {
         viewModel.todoLD.observe(viewLifecycleOwner, Observer {
-            binding.txtTitle.setText(it.title)
-            binding.txtNotes.setText(it.notes)
+            binding.todo = it
 
-            when (it.priority) {
-                1 -> binding.radioLow.isChecked = true
-                2 -> binding.radioMedium.isChecked = true
-                else -> binding.radioHigh.isChecked = true
-            }
+//            binding.txtTitle.setText(it.title)
+//            binding.txtNotes.setText(it.notes)
+
+//            when (it.priority) {
+//                1 -> binding.radioLow.isChecked = true
+//                2 -> binding.radioMedium.isChecked = true
+//                else -> binding.radioHigh.isChecked = true
+//            }
 
         })
     }
 
+    override fun onRadioClick(v: View) {
+        val priority = v.tag.toString().toInt()
+        binding.todo?.priority = priority
+    }
+
+    override fun onClick(v: View) {
+        viewModel.updateTodo(binding.todo as Todo)
+        Toast.makeText(context, "Todo updated", Toast.LENGTH_SHORT).show()
+        Navigation.findNavController(v).popBackStack()
+    }
 
 
 }

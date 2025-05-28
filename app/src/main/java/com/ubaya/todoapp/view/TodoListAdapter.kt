@@ -2,7 +2,9 @@ package com.ubaya.todoapp.view
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.ubaya.todoapp.databinding.TodoItemLayoutBinding
@@ -11,7 +13,8 @@ import com.ubaya.todoapp.model.Todo
 class TodoListAdapter(
     val todoList:ArrayList<Todo>,
     val adapterOnClick : (Todo) -> Unit)
-    : RecyclerView.Adapter<TodoListAdapter.TodoViewHolder>() {
+    : RecyclerView.Adapter<TodoListAdapter.TodoViewHolder>(),
+    TodoListChangeListener {
     class TodoViewHolder(var binding: TodoItemLayoutBinding):
         RecyclerView.ViewHolder(binding.root)
 
@@ -22,8 +25,9 @@ class TodoListAdapter(
     }
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
-        holder.binding.checkTask.text = todoList[position].title.toString()
-
+//        holder.binding.checkTask.text = todoList[position].title.toString()
+        holder.binding.todo = todoList[position]
+        holder.binding.listener = this
         holder.binding.checkTask.setOnCheckedChangeListener {
                 compoundButton, b ->
             if(compoundButton.isPressed) {
@@ -51,5 +55,21 @@ class TodoListAdapter(
         todoList.addAll(newTodoList)
         notifyDataSetChanged()
     }
+
+    override fun onCheckedChanged(cb: CompoundButton,
+                                  isChecked: Boolean, obj: Todo) {
+        if(cb.isPressed) {
+            adapterOnClick(obj)
+        }
+    }
+
+    override fun onTodoEditClick(v: View) {
+        val uuid = v.tag.toString().toInt()
+        val action =
+            TodoListFragmentDirections.actionEditTodoFragment(uuid)
+
+        Navigation.findNavController(v).navigate(action)
+    }
+
 
 }
